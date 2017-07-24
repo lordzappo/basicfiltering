@@ -169,6 +169,8 @@ def RunStdFilter(args):
     else:
         nsampleName = sample1
     for record in vcf_reader:
+        if 'END' in record.INFO:
+            del record.INFO['END']
         tcall = record.genotype(args.tsampleName)
         recordType = record.INFO['SVTYPE']
         recordLen = abs(int(record.INFO['SVLEN']))
